@@ -1,0 +1,193 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Windows"]
+        }
+      }
+    },
+    {
+      "name": "windows-x64-debug",
+      "displayName": "Windows x64 Debug",
+      "description": "Debug build for Windows x64 with vcpkg",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "3"
+      }
+    },
+    {
+      "name": "windows-x64-release",
+      "displayName": "Windows x64 Release",
+      "description": "Release build for Windows x64 with vcpkg",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "1"
+      }
+    },
+    {
+      "name": "windows-x64-debug-nfc",
+      "displayName": "Windows x64 Debug with NFC",
+      "description": "Debug build for Windows x64 with NFC support",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "ON",
+        "HAP_LOG_LEVEL": "3"
+      }
+    },
+    {
+      "name": "windows-x64-release-nfc",
+      "displayName": "Windows x64 Release with NFC",
+      "description": "Release build for Windows x64 with NFC support",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "ON",
+        "HAP_LOG_LEVEL": "1"
+      }
+    },
+    {
+      "name": "windows-x64-mbedtls",
+      "displayName": "Windows x64 with MbedTLS",
+      "description": "Release build using MbedTLS 4.x instead of OpenSSL",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "USE_MBEDTLS": "ON",
+        "BUILD_TESTING": "OFF",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "1"
+      }
+    },
+    {
+      "name": "vs2022",
+      "displayName": "Visual Studio 2022",
+      "description": "Visual Studio 2022 configuration",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/vs2022",
+      "architecture": {
+        "value": "x64",
+        "strategy": "set"
+      },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "BUILD_TESTING": "ON",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "2"
+      }
+    },
+    {
+      "name": "linux-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      }
+    },
+    {
+      "name": "linux-x64-debug",
+      "displayName": "Linux x64 Debug",
+      "description": "Debug build for Linux x64",
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "3"
+      }
+    },
+    {
+      "name": "linux-x64-release",
+      "displayName": "Linux x64 Release",
+      "description": "Release build for Linux x64",
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF",
+        "BUILD_APPLICATIONS": "ON",
+        "HAVE_DISPLAY": "ON",
+        "HAVE_NFC": "OFF",
+        "HAP_LOG_LEVEL": "1"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-x64-debug",
+      "configurePreset": "windows-x64-debug",
+      "displayName": "Build Windows x64 Debug"
+    },
+    {
+      "name": "windows-x64-release",
+      "configurePreset": "windows-x64-release",
+      "displayName": "Build Windows x64 Release"
+    },
+    {
+      "name": "vs2022",
+      "configurePreset": "vs2022",
+      "displayName": "Build Visual Studio 2022",
+      "configuration": "Debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "windows-x64-debug",
+      "configurePreset": "windows-x64-debug",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": false}
+    }
+  ]
+}

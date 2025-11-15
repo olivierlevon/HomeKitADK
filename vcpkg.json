@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "homekit-adk",
+  "version-string": "1.0.0",
+  "description": "HomeKit Accessory Development Kit - Apple HomeKit Accessory Protocol implementation",
+  "homepage": "https://github.com/apple/HomeKitADK",
+  "supports": "windows & linux & osx",
+  "dependencies": [
+    {
+      "name": "openssl",
+      "version>=": "3.0.0",
+      "default-features": true
+    }
+  ],
+  "features": {
+    "nfc": {
+      "description": "Enable NFC support using libnfc",
+      "dependencies": [
+        {
+          "name": "libnfc",
+          "platform": "windows | linux"
+        }
+      ]
+    },
+    "ble": {
+      "description": "Enable FULL Bluetooth Low Energy peripheral support using BTstack",
+      "dependencies": [
+        {
+          "name": "btstack",
+          "platform": "windows | linux | osx"
+        }
+      ]
+    },
+    "qrcode": {
+      "description": "Enable QR code generation using libqrencode",
+      "dependencies": [
+        {
+          "name": "qrencode",
+          "platform": "windows | linux | osx"
+        }
+      ]
+    },
+    "mbedtls": {
+      "description": "Use MbedTLS 4.x (with TLS 1.3 support) instead of OpenSSL for cryptography",
+      "dependencies": [
+        {
+          "name": "mbedtls",
+          "version>=": "4.0.0",
+          "default-features": true,
+          "features": ["psa"]
+        }
+      ]
+    },
+    "bonjour": {
+      "description": "mDNS service discovery support (Windows only, requires Bonjour SDK)",
+      "dependencies": []
+    },
+    "testing": {
+      "description": "Build unit tests and test applications",
+      "dependencies": []
+    }
+  },
+  "builtin-baseline": "latest"
+}
