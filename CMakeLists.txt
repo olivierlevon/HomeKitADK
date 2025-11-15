@@ -10,6 +10,9 @@ project(HomeKitADK
     LANGUAGES C CXX
 )
 
+# Add custom CMake modules path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
+
 # CMake options
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -103,25 +106,33 @@ if(WIN32)
     endif()
 
     if(HAVE_NFC)
-        find_package(libnfc CONFIG REQUIRED)
-        list(APPEND PLATFORM_LIBS nfc)
+        find_package(libnfc REQUIRED)
+        if(libnfc_FOUND)
+            list(APPEND PLATFORM_LIBS ${libnfc_LIBRARIES})
+            include_directories(${libnfc_INCLUDE_DIRS})
+            message(STATUS "NFC support enabled with libnfc: ${libnfc_LIBRARY}")
+        endif()
     endif()
 
     # BLE support using BTstack
     if(HAVE_BLE)
-        find_package(btstack CONFIG REQUIRED)
-        list(APPEND PLATFORM_LIBS btstack)
-        message(STATUS "BLE support enabled with BTstack")
+        find_package(BTstack REQUIRED)
+        if(BTstack_FOUND)
+            list(APPEND PLATFORM_LIBS ${BTstack_LIBRARIES})
+            include_directories(${BTstack_INCLUDE_DIRS})
+            message(STATUS "BLE support enabled with BTstack: ${BTstack_LIBRARY}")
+        endif()
     endif()
 
     # QR Code generation
     if(HAVE_QR_CODE)
-        find_package(qrencode CONFIG)
+        find_package(qrencode)
         if(qrencode_FOUND)
-            list(APPEND PLATFORM_LIBS qrencode)
-            message(STATUS "QR code generation enabled with libqrencode")
+            list(APPEND PLATFORM_LIBS ${qrencode_LIBRARIES})
+            include_directories(${qrencode_INCLUDE_DIRS})
+            message(STATUS "QR code generation enabled with libqrencode: ${qrencode_LIBRARY}")
         else()
-            message(WARNING "libqrencode not found. QR codes will be text-only. Install: vcpkg install qrencode:x64-windows")
+            message(WARNING "libqrencode not found. QR codes will be text-only. Run: Scripts/Build-Dependencies.ps1 -Libraries qrencode")
         endif()
     endif()
 
@@ -153,7 +164,7 @@ if(MSVC)
         /permissive-
         /Zc:__cplusplus
         /D_CRT_SECURE_NO_WARNINGS
-        /D_WIN32_WINNT=0x0601
+        /D_WIN32_WINNT=0x0A00
         /DWIN32_LEAN_AND_MEAN
     )
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -226,8 +237,10 @@ include_directories(
 # Subdirectories
 add_subdirectory(External/Base64)
 add_subdirectory(External/JSON)
+add_subdirectory(External/HTTP)
 add_subdirectory(HAP)
 add_subdirectory(PAL/${PLATFORM})
+add_subdirectory(Tools)
 
 if(BUILD_APPLICATIONS)
     add_subdirectory(Applications)

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>c;cpp;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{11111111-2222-3333-4444-555555555555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File IO">
+      <UniqueIdentifier>{22222222-3333-4444-5555-666666666666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{33333333-4444-5555-6666-777777777777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Accessory Setup">
+      <UniqueIdentifier>{44444444-5555-6666-7777-888888888888}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HAPPlatform.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformAbort.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformClock.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformLog.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformRandomNumber.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformSystemCommand.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformFileManager.c">
+      <Filter>Source Files\File IO</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformKeyValueStore.c">
+      <Filter>Source Files\File IO</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformRunLoop.c">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformTCPStreamManager.c">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformServiceDiscovery.c">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformBLEPeripheralManager.c">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformAccessorySetup.c">
+      <Filter>Source Files\Accessory Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformAccessorySetupDisplay.c">
+      <Filter>Source Files\Accessory Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformAccessorySetupNFC.c">
+      <Filter>Source Files\Accessory Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformMFiHWAuth.c">
+      <Filter>Source Files\Accessory Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="HAPPlatformMFiTokenAuth.c">
+      <Filter>Source Files\Accessory Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPAssert.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPLog.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPPlatformSystemInit.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+Crypto.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+Double.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+Float.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+Int.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+MACAddress.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+RawBuffer.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+Sha1Checksum.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+String.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HAPBase+UTF8.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Crypto\OpenSSL\HAPOpenSSL.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HAPPlatformFileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HAPPlatformLog+Init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

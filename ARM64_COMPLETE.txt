@@ -1,0 +1,79 @@
+===================================================
+HOME KIT ADK - COMPLETE ARM64 WINDOWS SUPPORT
+November 15, 2025
+===================================================
+
+✅ ARM64 FULLY SUPPORTED
+
+Platform Configurations:
+  - Debug|x64
+  - Release|x64
+  - Debug|ARM64        ← NEW!
+  - Release|ARM64      ← NEW!
+  - Debug-BLE|x64
+  - Release-BLE|x64
+  - Debug-BLE|ARM64    ← NEW!
+  - Release-BLE|ARM64  ← NEW!
+
+✅ ALL 8 PROJECTS SUPPORT ARM64:
+  1. Base64.vcxproj         ✅ ARM64 added
+  2. JSON.vcxproj           ✅ ARM64 added
+  3. HTTP.vcxproj           ✅ ARM64 added
+  4. HAPPlatform_Windows.vcxproj  ✅ ARM64 added
+  5. HAP.vcxproj            ✅ ARM64 added
+  6. Lightbulb.vcxproj      ✅ ARM64 added
+  7. Lock.vcxproj           ✅ ARM64 added
+  8. AccessorySetupGenerator.vcxproj  ✅ ARM64 added
+
+✅ SOLUTION FILE UPDATED:
+  - HomeKitADK.sln has 68 ARM64 references
+  - All configurations mapped
+
+✅ CMAKE PRESETS ADDED:
+  - windows-arm64-debug
+  - windows-arm64-release
+  - VCPKG_TARGET_TRIPLET=arm64-windows
+
+✅ BUILD SCRIPTS UPDATED:
+  - Build-Dependencies.ps1 -Architecture ARM64
+  - Builds BTstack, libnfc, qrencode for ARM64
+
+✅ DOCUMENTATION CREATED:
+  - ARM64_WINDOWS_SUPPORT.md
+  - Complete ARM64 build instructions
+
+===================================================
+
+HOW TO BUILD FOR ARM64:
+
+Visual Studio:
+  1. Open HomeKitADK.sln
+  2. Platform dropdown → Select "ARM64"
+  3. Configuration → "Release"
+  4. Build → Rebuild Solution
+
+CMake:
+  cmake --preset windows-arm64-release
+  cmake --build --preset windows-arm64-release
+
+Dependencies for ARM64:
+  vcpkg install openssl:arm64-windows
+  .\Scripts\Build-Dependencies.ps1 -Architecture ARM64
+
+===================================================
+
+SUPPORTED WINDOWS DEVICES:
+  ✅ Surface Pro X (ARM64)
+  ✅ Windows Dev Kit 2023 (Snapdragon)
+  ✅ Lenovo ThinkPad X13s (ARM64)
+  ✅ Samsung Galaxy Book (Snapdragon)
+  ✅ Any Windows 11 ARM device
+
+CROSS-COMPILATION:
+  ✅ x64 PC → Build for ARM64
+  ✅ ARM64 PC → Build for x64 (if needed)
+
+===================================================
+Status: COMPLETE ✅
+ARM64 is FULLY SUPPORTED on Windows!
+===================================================

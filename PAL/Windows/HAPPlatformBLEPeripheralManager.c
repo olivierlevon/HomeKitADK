@@ -10,6 +10,9 @@
 
 #include "HAPPlatformBLEPeripheralManager+Init.h"
 
+// Log object (used by both BLE and stub implementations)
+static const HAPLogObject logObject = { .subsystem = kHAPPlatform_LogSubsystem, .category = "BLEPeripheralManager" };
+
 #ifdef HAVE_BLE
 
 #include <Windows.h>
@@ -20,8 +23,6 @@
 #include "ble/att_db.h"
 #include "ble/att_server.h"
 #include "ble/sm.h"
-
-static const HAPLogObject logObject = { .subsystem = kHAPPlatform_LogSubsystem, .category = "BLEPeripheralManager" };
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -271,13 +272,16 @@ void HAPPlatformBLEPeripheralManagerRemoveAllServices(HAPPlatformBLEPeripheralMa
     HAPLogDebug(&logObject, "Removed all BLE services");
 }
 
-void HAPPlatformBLEPeripheralManagerAddService(
+HAPError HAPPlatformBLEPeripheralManagerAddService(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_,
         const HAPPlatformBLEPeripheralManagerUUID* type,
         bool isPrimary) {
     HAPPrecondition(blePeripheralManager_);
     HAPPrecondition(type);
-    HAPPrecondition(num_services < MAX_SERVICES);
+
+    if (num_services >= MAX_SERVICES) {
+        return kHAPError_OutOfResources;
+    }
 
     gatt_service_t* service = &services[num_services++];
     service->start_handle = next_handle++;
@@ -286,21 +290,23 @@ void HAPPlatformBLEPeripheralManagerAddService(
     service->num_characteristics = 0;
 
     HAPLogInfo(&logObject, "Added BLE service, handle: 0x%04x, primary: %d", service->start_handle, isPrimary);
+
+    return kHAPError_None;
 }
 
-uint16_t HAPPlatformBLEPeripheralManagerAddCharacteristic(
+HAPError HAPPlatformBLEPeripheralManagerAddCharacteristic(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_,
         const HAPPlatformBLEPeripheralManagerUUID* type,
         HAPPlatformBLEPeripheralManagerCharacteristicProperties properties,
         const void* _Nullable constBytes,
         size_t constNumBytes,
-        void* _Nullable bytes,
-        size_t numBytes) {
+        HAPPlatformBLEPeripheralManagerAttributeHandle* valueHandle,
+        HAPPlatformBLEPeripheralManagerAttributeHandle* _Nullable cccDescriptorHandle) {
     HAPPrecondition(blePeripheralManager_);
     HAPPrecondition(type);
+    HAPPrecondition(valueHandle);
     HAPPrecondition(num_characteristics < MAX_CHARACTERISTICS);
     HAPPrecondition(!constNumBytes || constBytes);
-    HAPPrecondition(!numBytes || bytes);
 
     gatt_characteristic_t* characteristic = &characteristics[num_characteristics++];
     characteristic->handle = next_handle++;
@@ -317,46 +323,49 @@ uint16_t HAPPlatformBLEPeripheralManagerAddCharacteristic(
 
     characteristic->permissions = ATT_PERMISSION_READ | ATT_PERMISSION_WRITE;
 
-    // Handle value storage
+    // Store constant value
     if (constBytes && constNumBytes) {
         characteristic->value = (uint8_t*)constBytes;
         characteristic->value_len = (uint16_t)constNumBytes;
         characteristic->value_capacity = (uint16_t)constNumBytes;
-    } else if (bytes && numBytes) {
-        characteristic->value = (uint8_t*)bytes;
-        characteristic->value_len = 0;
-        characteristic->value_capacity = (uint16_t)numBytes;
-    } else {
-        characteristic->value = NULL;
-        characteristic->value_len = 0;
-        characteristic->value_capacity = 0;
+    }
+
+    // Return handle
+    *valueHandle = characteristic->handle;
+
+    // Create CCC descriptor if needed (notify/indicate)
+    if (cccDescriptorHandle && (properties.notify || properties.indicate)) {
+        *cccDescriptorHandle = next_handle++;
+    } else if (cccDescriptorHandle) {
+        *cccDescriptorHandle = 0;
     }
 
     HAPLogInfo(&logObject, "Added BLE characteristic, handle: 0x%04x, properties: 0x%02x",
                characteristic->handle, characteristic->properties);
 
-    return characteristic->handle;
+    return kHAPError_None;
 }
 
-uint16_t HAPPlatformBLEPeripheralManagerAddDescriptor(
+HAPError HAPPlatformBLEPeripheralManagerAddDescriptor(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_,
         const HAPPlatformBLEPeripheralManagerUUID* type,
         HAPPlatformBLEPeripheralManagerDescriptorProperties properties,
         const void* _Nullable constBytes,
         size_t constNumBytes,
-        void* _Nullable bytes,
-        size_t numBytes) {
+        HAPPlatformBLEPeripheralManagerAttributeHandle* descriptorHandle) {
     HAPPrecondition(blePeripheralManager_);
     HAPPrecondition(type);
+    HAPPrecondition(descriptorHandle);
     HAPPrecondition(!constNumBytes || constBytes);
-    HAPPrecondition(!numBytes || bytes);
 
     // Descriptors are stored similarly to characteristics in BTstack
     uint16_t handle = next_handle++;
 
+    *descriptorHandle = handle;
+
     HAPLogInfo(&logObject, "Added BLE descriptor, handle: 0x%04x", handle);
 
-    return handle;
+    return kHAPError_None;
 }
 
 void HAPPlatformBLEPeripheralManagerPublishServices(HAPPlatformBLEPeripheralManagerRef blePeripheralManager_) {
@@ -441,12 +450,12 @@ void HAPPlatformBLEPeripheralManagerCancelCentralConnection(
     }
 }
 
-void HAPPlatformBLEPeripheralManagerSendHandleValueIndication(
+HAPError HAPPlatformBLEPeripheralManagerSendHandleValueIndication(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_,
         HAPPlatformBLEPeripheralManagerConnectionHandle connectionHandle,
-        uint16_t valueHandle,
+        HAPPlatformBLEPeripheralManagerAttributeHandle valueHandle,
         const void* _Nullable bytes,
-        size_t numBytes) {
+        size_t numBytes) HAP_DIAGNOSE_ERROR(!bytes && numBytes, "empty buffer cannot have a length") {
     HAPPrecondition(blePeripheralManager_);
     HAPPrecondition(!numBytes || bytes);
 
@@ -454,6 +463,8 @@ void HAPPlatformBLEPeripheralManagerSendHandleValueIndication(
         att_server_notify(connection_handle, valueHandle, (const uint8_t*)bytes, (uint16_t)numBytes);
         HAPLogDebug(&logObject, "Sent BLE notification for handle 0x%04x, %zu bytes", valueHandle, numBytes);
     }
+
+    return kHAPError_None;
 }
 
 HAP_RESULT_USE_CHECK
@@ -498,28 +509,35 @@ void HAPPlatformBLEPeripheralManagerSetDeviceName(
 void HAPPlatformBLEPeripheralManagerRemoveAllServices(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED) {}
 
-void HAPPlatformBLEPeripheralManagerAddService(
+HAPError HAPPlatformBLEPeripheralManagerAddService(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED,
         const HAPPlatformBLEPeripheralManagerUUID* type HAP_UNUSED,
-        bool isPrimary HAP_UNUSED) {}
+        bool isPrimary HAP_UNUSED) {
+    return kHAPError_Unknown;
+}
 
-uint16_t HAPPlatformBLEPeripheralManagerAddCharacteristic(
+HAPError HAPPlatformBLEPeripheralManagerAddCharacteristic(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED,
         const HAPPlatformBLEPeripheralManagerUUID* type HAP_UNUSED,
         HAPPlatformBLEPeripheralManagerCharacteristicProperties properties HAP_UNUSED,
         const void* _Nullable constBytes HAP_UNUSED,
         size_t constNumBytes HAP_UNUSED,
-        void* _Nullable bytes HAP_UNUSED,
-        size_t numBytes HAP_UNUSED) { return 0; }
+        HAPPlatformBLEPeripheralManagerAttributeHandle* valueHandle,
+        HAPPlatformBLEPeripheralManagerAttributeHandle* _Nullable cccDescriptorHandle HAP_UNUSED) {
+    if (valueHandle) *valueHandle = 0;
+    return kHAPError_Unknown;
+}
 
-uint16_t HAPPlatformBLEPeripheralManagerAddDescriptor(
+HAPError HAPPlatformBLEPeripheralManagerAddDescriptor(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED,
         const HAPPlatformBLEPeripheralManagerUUID* type HAP_UNUSED,
         HAPPlatformBLEPeripheralManagerDescriptorProperties properties HAP_UNUSED,
         const void* _Nullable constBytes HAP_UNUSED,
         size_t constNumBytes HAP_UNUSED,
-        void* _Nullable bytes HAP_UNUSED,
-        size_t numBytes HAP_UNUSED) { return 0; }
+        HAPPlatformBLEPeripheralManagerAttributeHandle* descriptorHandle) {
+    if (descriptorHandle) *descriptorHandle = 0;
+    return kHAPError_Unknown;
+}
 
 void HAPPlatformBLEPeripheralManagerPublishServices(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED) {}
@@ -539,12 +557,14 @@ void HAPPlatformBLEPeripheralManagerCancelCentralConnection(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED,
         HAPPlatformBLEPeripheralManagerConnectionHandle connectionHandle HAP_UNUSED) {}
 
-void HAPPlatformBLEPeripheralManagerSendHandleValueIndication(
+HAPError HAPPlatformBLEPeripheralManagerSendHandleValueIndication(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED,
         HAPPlatformBLEPeripheralManagerConnectionHandle connectionHandle HAP_UNUSED,
-        uint16_t valueHandle HAP_UNUSED,
+        HAPPlatformBLEPeripheralManagerAttributeHandle valueHandle HAP_UNUSED,
         const void* _Nullable bytes HAP_UNUSED,
-        size_t numBytes HAP_UNUSED) {}
+        size_t numBytes HAP_UNUSED) HAP_DIAGNOSE_ERROR(!bytes && numBytes, "empty buffer cannot have a length") {
+    return kHAPError_Unknown;
+}
 
 bool HAPPlatformBLEPeripheralManagerIsAdvertising(
         HAPPlatformBLEPeripheralManagerRef blePeripheralManager_ HAP_UNUSED) { return false; }

@@ -583,7 +583,7 @@ void HAPPlatformRunLoopStop(void) {
     }
 }
 
-void HAPPlatformRunLoopScheduleCallback(
+HAPError HAPPlatformRunLoopScheduleCallback(
         HAPPlatformRunLoopCallback callback,
         void* _Nullable context,
         size_t contextSize) {
@@ -593,7 +593,7 @@ void HAPPlatformRunLoopScheduleCallback(
 
     if (runLoop.numSelfPipeBytes > 0) {
         HAPLog(&logObject, "Self-pipe buffer already in use.");
-        HAPFatalError();
+        return kHAPError_OutOfResources;
     }
 
     HAPRawBufferCopyBytes(&runLoop.selfPipeBytes[0], &callback, sizeof callback);
@@ -606,4 +606,6 @@ void HAPPlatformRunLoopScheduleCallback(
     // Wake up the run loop
     char byte = 0;
     send(runLoop.selfPipeSocket1, &byte, 1, 0);
+
+    return kHAPError_None;
 }

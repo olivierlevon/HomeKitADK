@@ -8,37 +8,26 @@
   "dependencies": [
     {
       "name": "openssl",
-      "version>=": "3.0.0",
+      "version>=": "3.5.4",
       "default-features": true
+    },
+    {
+      "name": "libusb",
+      "platform": "windows"
     }
   ],
   "features": {
     "nfc": {
-      "description": "Enable NFC support using libnfc",
-      "dependencies": [
-        {
-          "name": "libnfc",
-          "platform": "windows | linux"
-        }
-      ]
+      "description": "Enable NFC support using libnfc (build from source on Windows - see Scripts/Build-Dependencies.ps1)",
+      "dependencies": []
     },
     "ble": {
-      "description": "Enable FULL Bluetooth Low Energy peripheral support using BTstack",
-      "dependencies": [
-        {
-          "name": "btstack",
-          "platform": "windows | linux | osx"
-        }
-      ]
+      "description": "Enable FULL Bluetooth Low Energy peripheral support using BTstack (build from source on Windows - see Scripts/Build-Dependencies.ps1)",
+      "dependencies": []
     },
     "qrcode": {
-      "description": "Enable QR code generation using libqrencode",
-      "dependencies": [
-        {
-          "name": "qrencode",
-          "platform": "windows | linux | osx"
-        }
-      ]
+      "description": "Enable QR code generation using libqrencode (build from source on Windows - see Scripts/Build-Dependencies.ps1)",
+      "dependencies": []
     },
     "mbedtls": {
       "description": "Use MbedTLS 4.x (with TLS 1.3 support) instead of OpenSSL for cryptography",
@@ -60,5 +49,5 @@
       "dependencies": []
     }
   },
-  "builtin-baseline": "latest"
+  "builtin-baseline": "0804e3b55b7e435c593707071052363fa876f170"
 }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{E5F67890-ABCD-EF12-3456-789ABCDEF012}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>HAP</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgEnabled>true</VcpkgEnabled>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)build\vs2026\lib\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\vs2026\obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00;WIN32_LEAN_AND_MEAN;HAP_LOG_LEVEL=2;HAVE_DISPLAY=1;IP=1;HAVE_QR_CODE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)HAP;$(SolutionDir)PAL;$(SolutionDir)PAL\Windows;$(SolutionDir)PAL\Crypto\OpenSSL;$(SolutionDir)External\Base64;$(SolutionDir)External\JSON;$(SolutionDir)External\HTTP;$(BONJOUR_SDK)\Include;$(VCPKG_ROOT)\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Condition="'$(Configuration)'=='Debug'">
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Condition="'$(Configuration)'=='Release'">
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="HAPAccessory+Info.c" />
+    <ClCompile Include="HAPAccessoryServer.c" />
+    <ClCompile Include="HAPAccessoryServer+Reset.c" />
+    <ClCompile Include="HAPAccessorySetup.c" />
+    <ClCompile Include="HAPAccessorySetupInfo.c" />
+    <ClCompile Include="HAPAccessoryValidation.c" />
+    <ClCompile Include="HAPBitSet.c" />
+    <ClCompile Include="HAPBLEAccessoryServer.c" />
+    <ClCompile Include="HAPBLEAccessoryServer+Advertising.c" />
+    <ClCompile Include="HAPBLEAccessoryServer+Broadcast.c" />
+    <ClCompile Include="HAPBLECharacteristic.c" />
+    <ClCompile Include="HAPBLECharacteristic+Broadcast.c" />
+    <ClCompile Include="HAPBLECharacteristic+Configuration.c" />
+    <ClCompile Include="HAPBLECharacteristic+Signature.c" />
+    <ClCompile Include="HAPBLECharacteristicParseAndWriteValue.c" />
+    <ClCompile Include="HAPBLECharacteristicReadAndSerializeValue.c" />
+    <ClCompile Include="HAPBLEPDU.c" />
+    <ClCompile Include="HAPBLEPDU+TLV.c" />
+    <ClCompile Include="HAPBLEPeripheralManager.c" />
+    <ClCompile Include="HAPBLEProcedure.c" />
+    <ClCompile Include="HAPBLEProtocol+Configuration.c" />
+    <ClCompile Include="HAPBLEService+Signature.c" />
+    <ClCompile Include="HAPBLESession.c" />
+    <ClCompile Include="HAPBLETransaction.c" />
+    <ClCompile Include="HAPCharacteristic.c" />
+    <ClCompile Include="HAPCharacteristicTypes.c" />
+    <ClCompile Include="HAPDeviceID.c" />
+    <ClCompile Include="HAPIP+ByteBuffer.c" />
+    <ClCompile Include="HAPIPAccessory.c" />
+    <ClCompile Include="HAPIPAccessoryProtocol.c" />
+    <ClCompile Include="HAPIPAccessoryServer.c" />
+    <ClCompile Include="HAPIPCharacteristic.c" />
+    <ClCompile Include="HAPIPSecurityProtocol.c" />
+    <ClCompile Include="HAPIPServiceDiscovery.c" />
+    <ClCompile Include="HAPJSONUtils.c" />
+    <ClCompile Include="HAPLegacyImport.c" />
+    <ClCompile Include="HAPMACAddress.c" />
+    <ClCompile Include="HAPMFiHWAuth.c" />
+    <ClCompile Include="HAPMFiTokenAuth.c" />
+    <ClCompile Include="HAPPairing.c" />
+    <ClCompile Include="HAPPairingBLESessionCache.c" />
+    <ClCompile Include="HAPPairingPairings.c" />
+    <ClCompile Include="HAPPairingPairSetup.c" />
+    <ClCompile Include="HAPPairingPairVerify.c" />
+    <ClCompile Include="HAPPDU.c" />
+    <ClCompile Include="HAPRequestHandlers.c" />
+    <ClCompile Include="HAPRequestHandlers+AccessoryInformation.c" />
+    <ClCompile Include="HAPRequestHandlers+HAPProtocolInformation.c" />
+    <ClCompile Include="HAPRequestHandlers+Pairing.c" />
+    <ClCompile Include="HAPServiceTypes.c" />
+    <ClCompile Include="HAPSession.c" />
+    <ClCompile Include="HAPStringBuilder.c" />
+    <ClCompile Include="HAPTLV.c" />
+    <ClCompile Include="HAPTLVMemory.c" />
+    <ClCompile Include="HAPTLVReader.c" />
+    <ClCompile Include="HAPTLVWriter.c" />
+    <ClCompile Include="HAPUUID.c" />
+    <ClCompile Include="HAPVersion.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HAP.h" />
+    <ClInclude Include="HAP+Internal.h" />
+    <ClInclude Include="HAPAccessory.h" />
+    <ClInclude Include="HAPAccessoryServer.h" />
+    <ClInclude Include="HAPAccessorySetup.h" />
+    <ClInclude Include="HAPAccessorySetupInfo.h" />
+    <ClInclude Include="HAPBase.h" />
+    <ClInclude Include="HAPBLEAccessoryServer.h" />
+    <ClInclude Include="HAPBLECharacteristic.h" />
+    <ClInclude Include="HAPBLEPeripheralManager.h" />
+    <ClInclude Include="HAPBLETransaction.h" />
+    <ClInclude Include="HAPCharacteristic.h" />
+    <ClInclude Include="HAPCharacteristicTypes.h" />
+    <ClInclude Include="HAPIPAccessoryServer.h" />
+    <ClInclude Include="HAPLog.h" />
+    <ClInclude Include="HAPMFiHWAuth.h" />
+    <ClInclude Include="HAPMFiTokenAuth.h" />
+    <ClInclude Include="HAPPairing.h" />
+    <ClInclude Include="HAPService.h" />
+    <ClInclude Include="HAPServiceTypes.h" />
+    <ClInclude Include="HAPVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)PAL\Windows\HAPPlatform_Windows.vcxproj">
+      <Project>{D4E5F678-90AB-CDEF-1234-56789ABCDEF0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)External\Base64\Base64.vcxproj">
+      <Project>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</Project>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)External\JSON\JSON.vcxproj">
+      <Project>{B2C3D4E5-F678-90AB-CDEF-123456789ABC}</Project>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)External\HTTP\HTTP.vcxproj">
+      <Project>{C3D4E5F6-7890-ABCD-EF12-3456789ABCDE}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

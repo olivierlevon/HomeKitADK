@@ -2983,6 +2983,174 @@ extern const HAPUUID kHAPCharacteristicType_ActiveIdentifier;
 extern const HAPUUID kHAPCharacteristicType_ADKVersion;
 /**@}*/
 
+/**
+ * Streaming Status.
+ *
+ * This characteristic is used with RTP Stream Management Service.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV
+ * - Permissions: Paired Read, Notify
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.98 Streaming Status
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_StreamingStatus "streaming-status"
+
+extern const HAPUUID kHAPCharacteristicType_StreamingStatus;
+
+HAP_ENUM_BEGIN(uint8_t, HAPCharacteristicValue_StreamingStatus) {
+    kHAPCharacteristicValue_StreamingStatus_Available = 0,
+    kHAPCharacteristicValue_StreamingStatus_InUse = 1,
+    kHAPCharacteristicValue_StreamingStatus_Unavailable = 2
+} HAP_ENUM_END(uint8_t, HAPCharacteristicValue_StreamingStatus);
+/**@}*/
+
+/**
+ * Supported Audio Stream Configuration.
+ *
+ * This characteristic describes the audio stream configuration supported by the microphone
+ * and speaker for RTP sessions.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV
+ * - Permissions: Paired Read
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.99 Supported Audio Stream Configuration
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SupportedAudioStreamConfiguration "supported-audio-configuration"
+
+extern const HAPUUID kHAPCharacteristicType_SupportedAudioStreamConfiguration;
+/**@}*/
+
+/**
+ * Supported Data Stream Transport Configuration.
+ *
+ * This characteristic is used with HomeKit Data Stream over TCP.
+ *
+ * This characteristic requires iOS 12 or later.
+ *
+ * - Format: TLV
+ * - Permissions: Paired Read
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.100 Supported Data Stream Transport Configuration
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SupportedDataStreamTransportConfiguration \
+    "supported-data-stream-transport-configuration"
+
+extern const HAPUUID kHAPCharacteristicType_SupportedDataStreamTransportConfiguration;
+/**@}*/
+
+/**
+ * Supported RTP Configuration.
+ *
+ * This characteristic describes the SRTP crypto suite supported by the accessory.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV
+ * - Permissions: Paired Read
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.101 Supported RTP Configuration
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SupportedRTPConfiguration "supported-rtp-configuration"
+
+extern const HAPUUID kHAPCharacteristicType_SupportedRTPConfiguration;
+
+HAP_ENUM_BEGIN(uint8_t, HAPCharacteristicValue_SupportedRTPConfiguration) {
+    kHAPCharacteristicValue_SupportedRTPConfiguration_AES_CM_128_HMAC_SHA1_80 = 0,
+    kHAPCharacteristicValue_SupportedRTPConfiguration_AES_256_CM_HMAC_SHA1_80 = 1,
+    kHAPCharacteristicValue_SupportedRTPConfiguration_Disabled = 2
+} HAP_ENUM_END(uint8_t, HAPCharacteristicValue_SupportedRTPConfiguration);
+/**@}*/
+
+/**
+ * Supported Video Stream Configuration.
+ *
+ * This characteristic describes the H.264 codec parameter and video attributes supported by the camera.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV
+ * - Permissions: Paired Read
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.102 Supported Video Stream Configuration
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SupportedVideoStreamConfiguration "supported-video-stream-configuration"
+
+extern const HAPUUID kHAPCharacteristicType_SupportedVideoStreamConfiguration;
+/**@}*/
+
+/**
+ * Selected RTP Stream Configuration.
+ *
+ * This characteristic is used as a control point for configuring video and audio attributes
+ * for a RTP stream.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV8
+ * - Permissions: Paired Read, Paired Write
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.97 Selected RTP Stream Configuration
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SelectedRTPStreamConfiguration "selected-rtp-stream-configuration"
+
+extern const HAPUUID kHAPCharacteristicType_SelectedRTPStreamConfiguration;
+/**@}*/
+
+/**
+ * Setup Endpoints.
+ *
+ * This characteristic is used for communication between the controller and the IP camera.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: TLV8
+ * - Permissions: Paired Read, Paired Write
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.96 Setup Endpoints
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_SetupEndpoints "setup-endpoints"
+
+extern const HAPUUID kHAPCharacteristicType_SetupEndpoints;
+/**@}*/
+
+/**
+ * Mute.
+ *
+ * This characteristic is used to mute audio input on Microphone or audio output on Speaker
+ * for an RTP service.
+ *
+ * This characteristic requires iOS 10 or later.
+ *
+ * - Format: Bool
+ * - Permissions: Paired Read, Paired Write, Notify
+ *
+ * @see HomeKit Accessory Protocol Specification R14
+ *      Section 9.61 Mute
+ */
+/**@{*/
+#define kHAPCharacteristicDebugDescription_Mute "mute"
+
+extern const HAPUUID kHAPCharacteristicType_Mute;
+/**@}*/
+
 #if __has_feature(nullability)
 #pragma clang assume_nonnull end
 #endif

@@ -40,24 +40,36 @@ target_link_libraries(HAPPlatform_Windows PUBLIC
     ${PLATFORM_LIBS}
 )
 
-# NFC support
+# NFC support (using custom Find module)
 if(HAVE_NFC)
-    target_link_libraries(HAPPlatform_Windows PUBLIC nfc)
+    find_package(libnfc)
+    if(libnfc_FOUND)
+        target_link_libraries(HAPPlatform_Windows PUBLIC libnfc::nfc)
+        target_compile_definitions(HAPPlatform_Windows PUBLIC HAVE_NFC=1)
+    else()
+        message(WARNING "libnfc not found. Build with: Scripts/Build-Dependencies.ps1 -Libraries libnfc")
+    endif()
 endif()
 
-# BLE support using BTstack
+# BLE support using BTstack (using custom Find module)
 if(HAVE_BLE)
-    find_package(btstack CONFIG REQUIRED)
-    target_link_libraries(HAPPlatform_Windows PUBLIC btstack::btstack)
-    target_compile_definitions(HAPPlatform_Windows PUBLIC HAVE_BLE=1)
+    find_package(BTstack)
+    if(BTstack_FOUND)
+        target_link_libraries(HAPPlatform_Windows PUBLIC BTstack::btstack)
+        target_compile_definitions(HAPPlatform_Windows PUBLIC HAVE_BLE=1)
+    else()
+        message(WARNING "BTstack not found. Build with: Scripts/Build-Dependencies.ps1 -Libraries BTstack")
+    endif()
 endif()
 
-# QR Code generation
+# QR Code generation (using custom Find module)
 if(HAVE_QR_CODE)
-    find_package(qrencode CONFIG)
+    find_package(qrencode)
     if(qrencode_FOUND)
-        target_link_libraries(HAPPlatform_Windows PUBLIC qrencode)
+        target_link_libraries(HAPPlatform_Windows PUBLIC qrencode::qrencode)
         target_compile_definitions(HAPPlatform_Windows PUBLIC HAVE_QR_CODE=1)
+    else()
+        message(WARNING "libqrencode not found. Build with: Scripts/Build-Dependencies.ps1 -Libraries qrencode")
     endif()
 endif()
 
@@ -70,7 +82,7 @@ target_include_directories(HAPPlatform_Windows PUBLIC
 
 # Compile definitions
 target_compile_definitions(HAPPlatform_Windows PRIVATE
-    _WIN32_WINNT=0x0601
+    _WIN32_WINNT=0x0A00
     WIN32_LEAN_AND_MEAN
     NOMINMAX
 )

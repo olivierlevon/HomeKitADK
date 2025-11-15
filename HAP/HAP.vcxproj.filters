@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BLE Protocol">
+      <UniqueIdentifier>{10000000-0000-0000-0000-000000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IP Protocol">
+      <UniqueIdentifier>{20000000-0000-0000-0000-000000000002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pairing">
+      <UniqueIdentifier>{30000000-0000-0000-0000-000000000003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{40000000-0000-0000-0000-000000000004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{50000000-0000-0000-0000-000000000005}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HAPBLEAccessoryServer.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEAccessoryServer+Advertising.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEAccessoryServer+Broadcast.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristic.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristic+Broadcast.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristic+Configuration.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristic+Signature.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristicParseAndWriteValue.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLECharacteristicReadAndSerializeValue.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEPDU.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEPDU+TLV.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEPeripheralManager.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEProcedure.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEProtocol+Configuration.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLEService+Signature.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLESession.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPBLETransaction.c"><Filter>Source Files\BLE Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIP+ByteBuffer.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPAccessory.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPAccessoryProtocol.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPAccessoryServer.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPCharacteristic.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPSecurityProtocol.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPIPServiceDiscovery.c"><Filter>Source Files\IP Protocol</Filter></ClCompile>
+    <ClCompile Include="HAPPairing.c"><Filter>Source Files\Pairing</Filter></ClCompile>
+    <ClCompile Include="HAPPairingBLESessionCache.c"><Filter>Source Files\Pairing</Filter></ClCompile>
+    <ClCompile Include="HAPPairingPairings.c"><Filter>Source Files\Pairing</Filter></ClCompile>
+    <ClCompile Include="HAPPairingPairSetup.c"><Filter>Source Files\Pairing</Filter></ClCompile>
+    <ClCompile Include="HAPPairingPairVerify.c"><Filter>Source Files\Pairing</Filter></ClCompile>
+    <ClCompile Include="HAPAccessory+Info.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPAccessoryServer.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPAccessoryServer+Reset.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPAccessorySetup.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPAccessorySetupInfo.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPAccessoryValidation.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPCharacteristic.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPCharacteristicTypes.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPMFiHWAuth.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPMFiTokenAuth.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPRequestHandlers.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPRequestHandlers+AccessoryInformation.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPRequestHandlers+HAPProtocolInformation.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPRequestHandlers+Pairing.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPServiceTypes.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPSession.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPVersion.c"><Filter>Source Files\Core</Filter></ClCompile>
+    <ClCompile Include="HAPBitSet.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPDeviceID.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPJSONUtils.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPLegacyImport.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPMACAddress.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPPDU.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPStringBuilder.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPTLV.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPTLVMemory.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPTLVReader.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPTLVWriter.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+    <ClCompile Include="HAPUUID.c"><Filter>Source Files\Utilities</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HAP.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAP+Internal.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPAccessory.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPAccessoryServer.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPAccessorySetup.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPAccessorySetupInfo.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPBase.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPBLEAccessoryServer.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPBLECharacteristic.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPBLEPeripheralManager.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPBLETransaction.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPCharacteristic.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPCharacteristicTypes.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPIPAccessoryServer.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPLog.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPMFiHWAuth.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPMFiTokenAuth.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPPairing.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPService.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPServiceTypes.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="HAPVersion.h"><Filter>Header Files</Filter></ClInclude>
+  </ItemGroup>
+</Project>
