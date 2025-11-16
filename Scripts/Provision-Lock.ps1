@@ -39,7 +39,7 @@ param(
     [string]$Name = 'HomeKit Lock',
 
     [Parameter()]
-    [string]$StoragePath = 'db-lock'
+    [string]$StoragePath = '.HomeKitStore-Lock'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -51,21 +51,24 @@ Write-Info "========================================="
 Write-Info "HomeKit Lock Provisioning"
 Write-Info "========================================="
 
+# Convert to absolute path
+$StoragePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($StoragePath)
+
 if (-not (Test-Path $StoragePath)) {
-    New-Item -ItemType Directory -Path $StoragePath | Out-Null
+    New-Item -ItemType Directory -Path $StoragePath -Force | Out-Null
     Write-Success "✓ Created storage directory: $StoragePath"
 }
 
-$setupCodeFile = Join-Path $StoragePath "00.00"
-$setupCodeBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupCode)
+$setupCodeFile = Join-Path $StoragePath "40.12"
+$setupCodeBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupCode + "`0")
 [System.IO.File]::WriteAllBytes($setupCodeFile, $setupCodeBytes)
-Write-Success "✓ Saved setup code: $SetupCode"
+Write-Success "✓ Saved setup code: $SetupCode (domain 0x40, key 0x12)"
 
 if ($SetupID) {
-    $setupIDFile = Join-Path $StoragePath "00.01"
-    $setupIDBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupID)
+    $setupIDFile = Join-Path $StoragePath "40.11"
+    $setupIDBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupID + "`0")
     [System.IO.File]::WriteAllBytes($setupIDFile, $setupIDBytes)
-    Write-Success "✓ Saved setup ID: $SetupID"
+    Write-Success "✓ Saved setup ID: $SetupID (domain 0x40, key 0x11)"
 
     $setupPayload = "X-HM://$SetupID$($SetupCode.Replace('-',''))"
     Write-Info "`n📱 Setup Payload: $setupPayload"

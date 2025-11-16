@@ -7,8 +7,10 @@
 #include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/wait.h>
 #include <unistd.h>
+#endif
 
 #include "HAPPlatformSystemCommand.h"
 

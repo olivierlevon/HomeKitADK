@@ -6,6 +6,13 @@ build-deps/
 dist/
 install/
 
+## Run generated
+.HomeKitStore
+db
+
+*.bak
+Claude.md
+
 # Exclude .DS_Store
 .DS_Store
 
@@ -17,7 +24,6 @@ install/
 # Pycharm temporary files
 .idea/
 
-.HomeKitStore
 
 # Open source export
 export/

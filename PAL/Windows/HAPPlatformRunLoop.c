@@ -17,7 +17,6 @@
 #include "HAPPlatformLog+Init.h"
 #include "HAPPlatformRunLoop+Init.h"
 
-#pragma comment(lib, "ws2_32.lib")
 
 static const HAPLogObject logObject = { .subsystem = kHAPPlatform_LogSubsystem, .category = "RunLoop" };
 

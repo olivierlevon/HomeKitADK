@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="HAP">
+      <UniqueIdentifier>{cbad52fe-12fe-4f59-83d2-518326b238aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Source Files">
+      <UniqueIdentifier>{21a4dcfd-b25e-474b-8f37-b74b0ae1c084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Source Files\PAL">
+      <UniqueIdentifier>{907954a8-a748-440d-9460-502deb4cc7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Source Files\PAL\Win32">
+      <UniqueIdentifier>{9d0253e9-420b-4181-b94a-3d08bfc51be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Source Files\Util">
+      <UniqueIdentifier>{caf4a9a8-adca-457c-a13b-bf17ee08108e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Header Files">
+      <UniqueIdentifier>{7b80e6e9-8a58-46be-958a-b126459d73c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Header Files\PAL">
+      <UniqueIdentifier>{2f294dbc-7303-4566-b7d0-ca00ab2f6bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAP\Header Files\PAL\Win32">
+      <UniqueIdentifier>{b1f280a2-9526-478d-af15-5d4a3ac127d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mock">
+      <UniqueIdentifier>{fb6e3cdc-411b-4c53-9f76-fe6b3e99da69}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\HAPBLEEventTest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformClock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatform.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformTimer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformServiceDiscovery.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessory+Info.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessoryServer+Reset.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessoryServer.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessorySetup.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessorySetupInfo.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPAccessoryValidation.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBitSet.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEAccessoryServer+Advertising.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEAccessoryServer+Broadcast.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEAccessoryServer.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristic+Broadcast.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristic+Configuration.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristic+Signature.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristic.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristicParseAndWriteValue.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLECharacteristicReadAndSerializeValue.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEPDU+TLV.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEPDU.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEPeripheralManager.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEProcedure.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEProtocol+Configuration.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLEService+Signature.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLESession.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPBLETransaction.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPCharacteristic.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPCharacteristicTypes.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPDeviceID.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIP+ByteBuffer.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPAccessory.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPAccessoryProtocol.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPAccessoryServer.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPCharacteristic.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPSecurityProtocol.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPIPServiceDiscovery.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPJSONUtils.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPLegacyImport.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPMACAddress.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPMFiHWAuth.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPMFiTokenAuth.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPairing.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPairingBLESessionCache.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPairingPairings.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPairingPairSetup.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPairingPairVerify.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPPDU.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPRequestHandlers+AccessoryInformation.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPRequestHandlers+HAPProtocolInformation.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPRequestHandlers+Pairing.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPRequestHandlers.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPServiceTypes.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPSession.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPStringBuilder.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPTLV.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPTLVMemory.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPTLVReader.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPTLVWriter.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPUUID.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HAP\HAPVersion.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Crypto\OpenSSL\HAPOpenSSL.c">
+      <Filter>HAP\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPAssert.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+Crypto.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+Double.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+Float.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+Int.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+MACAddress.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+RawBuffer.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+Sha1Checksum.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+String.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPBase+UTF8.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPLog.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\HAPPlatformSystemInit.c">
+      <Filter>HAP\Source Files\PAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Windows\HAPPlatformFileManager.c">
+      <Filter>HAP\Source Files\PAL\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\Base64\util_base64.c">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\HTTP\util_http_reader.c">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\JSON\util_json_reader.c">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformAbort.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformAccessorySetup.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformAccessorySetupDisplay.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformAccessorySetupNFC.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformBLEPeripheralManager.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformKeyValueStore.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformLog.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformMFiHWAuth.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformMFiTokenAuth.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformRandomNumber.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformRunLoop.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Mock\HAPPlatformTCPStreamManager.c">
+      <Filter>Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PAL\Windows\HAPPlatformSystemCommand.c">
+      <Filter>HAP\Source Files\PAL\Win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformClock+Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatform+Init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformTimer+Init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformServiceDiscovery+Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\Base64\util_base64.h">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\HTTP\util_http_reader.h">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\JSON\util_json_reader.h">
+      <Filter>HAP\Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAP+Internal.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAP+KeyValueStoreDomains.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAP.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPAccessory+Info.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPAccessoryServer+Internal.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPAccessorySetup.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPAccessorySetupInfo.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPAccessoryValidation.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBitSet.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEAccessoryServer+Advertising.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEAccessoryServer+Broadcast.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEAccessoryServer.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLECharacteristic+Broadcast.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLECharacteristic+Configuration.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLECharacteristic+Signature.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLECharacteristic+Value.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLECharacteristic.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEPDU+TLV.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEPDU.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEPeripheralManager.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEProcedure.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEProtocol+Configuration.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLEService+Signature.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLESession.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPBLETransaction.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPCharacteristic.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPCharacteristicTypes+TLV.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPCharacteristicTypes.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPDeviceID.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIP+ByteBuffer.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPAccessory.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPAccessoryProtocol.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPAccessoryServer.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPCharacteristic.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPSecurityProtocol.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPServiceDiscovery.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPIPSession.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPJSONUtils.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPLegacyImport.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPLog+Attributes.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPMACAddress.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPMFiAuth.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPMFiHWAuth+Types.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPMFiHWAuth.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPMFiTokenAuth.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPairing.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPairingBLESessionCache.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPairingPairings.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPairingPairSetup.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPairingPairVerify.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPPDU.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPRequestHandlers+AccessoryInformation.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPRequestHandlers+HAPProtocolInformation.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPRequestHandlers+Pairing.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPRequestHandlers.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPServiceTypes.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPSession.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPStringBuilder.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPTLV+Internal.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HAP\HAPUUID.h">
+      <Filter>HAP\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPAssert.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPBase+CompilerAbstraction.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPBase.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPCrypto.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPLog.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatform.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformAbort.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformAccessorySetup.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformAccessorySetupDisplay.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformAccessorySetupNFC.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformBLEPeripheralManager.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformClock.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformKeyValueStore.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformLog.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformMFiHWAuth.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformMFiTokenAuth.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformRandomNumber.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformRunLoop.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformServiceDiscovery.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformTCPStreamManager.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\HAPPlatformTimer.h">
+      <Filter>HAP\Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatform+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformAccessorySetup+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformAccessorySetupDisplay+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformAccessorySetupNFC+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformBLEPeripheralManager+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformFileHandle.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformFileManager.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformKeyValueStore+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformKeyValueStore+SDKDomains.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformLog+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformMFiHWAuth+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformMFiTokenAuth+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformRunLoop+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformServiceDiscovery+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformSystemCommand.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Windows\HAPPlatformTCPStreamManager+Init.h">
+      <Filter>HAP\Header Files\PAL\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformAccessorySetup+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformBLEPeripheralManager+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformBLEPeripheralManager+Test.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformKeyValueStore+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformMFiHWAuth+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformMFiTokenAuth+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformServiceDiscovery+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformSystemCommand.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformTCPStreamManager+Init.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PAL\Mock\HAPPlatformTCPStreamManager+Test.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="..\..\PAL\Mock\HAPPlatformStartup.S">
+      <Filter>Mock</Filter>
+    </None>
+  </ItemGroup>
+</Project>

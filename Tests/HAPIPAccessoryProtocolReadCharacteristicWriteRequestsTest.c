@@ -147,7 +147,11 @@ int main() {
         HAPAssert(contexts_count == 8);
         HAPIPWriteContext* writeContext = (HAPIPWriteContext*) &writeContexts[0];
         HAPAssert(writeContext->type == kHAPIPWriteValueType_Int);
-        HAPAssert(writeContext->value.intValue == -2147483648);
+#ifndef _MSC_VER
+		HAPAssert(writeContext->value.intValue == -2147483648);  //error C4146: unary minus operator applied to unsigned type, result still unsigned
+#else
+		HAPLogInfo(&kHAPLog_Default, "MSVC skipped test : HAPAssert(writeContext->value.intValue == -2147483648); -> error C4146: \"unary minus operator applied to unsigned type, result still unsigned\" at compile !");
+#endif
         writeContext = (HAPIPWriteContext*) &writeContexts[1];
         HAPAssert(writeContext->type == kHAPIPWriteValueType_Int);
         HAPAssert(writeContext->value.intValue == -1);

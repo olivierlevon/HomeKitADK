@@ -8,6 +8,7 @@
 //
 // This test requires the POSIX commands echo, true, false.
 
+#ifndef WIN32
 #ifndef ECHO_COMMAND
 #define ECHO_COMMAND "/bin/echo"
 #endif
@@ -18,6 +19,19 @@
 #ifndef FALSE_COMMAND
 #define FALSE_COMMAND "/usr/bin/env", "false"
 #endif
+#else
+#ifndef ECHO_COMMAND
+#define ECHO_COMMAND "cmd /c echo"
+#endif
+
+#ifndef TRUE_COMMAND
+#define TRUE_COMMAND "cmd /c set", "true"
+#endif
+#ifndef FALSE_COMMAND
+#define FALSE_COMMAND "cmd /c set", "false"
+#endif
+#endif
+
 
 #include <string.h>
 
@@ -34,7 +48,9 @@ static void RunAndCheck(char* const cmd[], const char* _Nullable expectedResult,
 
     HAPRawBufferZero(result, sizeof(result));
     size_t written;
-    err = HAPPlatformSystemCommandRun(cmd, result, sizeof(result), &written);
+
+	err = HAPPlatformSystemCommandRun(cmd, result, sizeof(result), &written);
+
     HAPAssert(err == expectedError);
     if (expectedResult) {
         HAPAssert(strcmp(expectedResult, result));

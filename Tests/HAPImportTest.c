@@ -15,8 +15,9 @@ typedef struct {
     bool foundInExport;
 } ControllerPairing;
 
-int main() {
+int main(void) {
     HAPError err;
+
     HAPPlatformCreate();
 
     // Import Device ID.

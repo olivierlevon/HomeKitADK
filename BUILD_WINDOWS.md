@@ -11,7 +11,11 @@ This guide explains how to build the HomeKit Accessory Development Kit (ADK) on 
   - [CMake Command Line](#cmake-command-line)
   - [vcpkg Integration](#vcpkg-integration)
 - [Build Options](#build-options)
+- [Project Structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
+- [Running the Applications](#running-the-applications)
+- [Running Tests](#running-tests)
+- [Advanced Topics](#advanced-topics)
 
 ---
 
@@ -357,6 +361,132 @@ cd build\windows-x64-debug\bin
 2. Tap "Add Accessory"
 3. Scan the QR code or enter the setup code manually
 4. Follow the pairing instructions
+
+---
+
+## Running Tests
+
+The HomeKit ADK includes a comprehensive test suite to verify functionality across platforms.
+
+### Building Tests
+
+Tests are built by default when `BUILD_TESTING=ON` (default). To disable test builds:
+
+```powershell
+cmake -B build -DBUILD_TESTING=OFF
+cmake --build build
+```
+
+### Running Tests with CTest
+
+After building, run all tests using CTest:
+
+```powershell
+# Run all tests
+cd build
+ctest -C Debug
+
+# Run tests with verbose output
+ctest -C Debug -VV
+
+# Run specific test
+ctest -C Debug -R HAPCryptoTest
+
+# Run tests in parallel
+ctest -C Debug -j 4
+```
+
+### Running Tests in Visual Studio
+
+1. **Open Test Explorer:**
+   - `Test` → `Test Explorer` (or press `Ctrl+E, T`)
+
+2. **Build Tests:**
+   - In Solution Explorer, expand the `Tests` folder
+   - Right-click `Tests.sln` → `Build`
+
+3. **Run Tests:**
+   - In Test Explorer, click `Run All Tests`
+   - Or run individual tests by right-clicking a specific test
+
+### Running Individual Test Executables
+
+Tests can also be run directly:
+
+```powershell
+cd build\windows-x64-debug\tests
+
+# Run specific test
+.\HAPCryptoTest.exe
+.\HAPBase+IntTests.exe
+.\util_base64_test.exe
+```
+
+### Available Tests
+
+The test suite includes the following test projects (located in `Tests/` folder):
+
+- **Core Tests:**
+  - `HAPBase+FloatTests` - Floating point utilities
+  - `HAPBase+IntTests` - Integer utilities
+  - `HAPBase+StringTests` - String utilities
+  - `HAPImportTest` - Header import validation
+
+- **Crypto Tests:**
+  - `HAPCryptoTest` - Cryptographic operations
+  - `util_base64_test` - Base64 encoding/decoding
+
+- **Protocol Tests:**
+  - `HAPAccessorySetupTest` - Setup code generation
+  - `HAPAccessorySetupGetSetupHashTest` - Setup hash calculation
+  - `HAPAccessorySetupGetSetupPayloadTest` - Setup payload generation
+  - `HAPUTF8Test` - UTF-8 validation
+  - `HAPExhaustiveUTF8Test` - Comprehensive UTF-8 testing (slow)
+  - `HAPUUIDTest` - UUID operations
+  - `HAPTLVTest` - Type-Length-Value encoding
+  - `HAPJSONUtilsTest` - JSON utilities
+
+- **BLE Tests:**
+  - `HAPBLEEventTest` - BLE event handling
+  - `HAPBLETransactionParseRequestTest` - BLE transaction parsing
+
+- **IP Protocol Tests:**
+  - `HAPIPAccessoryProtocolReadCharacteristicWriteRequestsTest`
+  - `HAPIPAccessoryProtocolReadPrepareWriteRequestTest`
+  - `HAPIPAccessoryProtocolReadStringCharacteristicWriteRequestsTest`
+  - `HAPIPAccessoryProtocolSerializeCharacteristicReadResponseTest`
+  - `HAPIPAccessoryProtocolSerializeStringCharacteristicReadResponseTest`
+
+- **Platform Tests:**
+  - `HAPPlatformSystemCommandTest` - System command execution
+
+### Visual Studio Solution for Tests
+
+All test projects are included in the main solution (`HomeKitADK.sln`) under the `Tests` folder. You can:
+
+1. **Open the solution:**
+   ```powershell
+   # Open in Visual Studio
+   start HomeKitADK.sln
+   ```
+
+2. **Build all tests:**
+   - In Solution Explorer, right-click `Tests` folder → `Build`
+
+3. **Run individual tests:**
+   - Right-click a specific test project → `Debug` → `Start New Instance`
+
+### Continuous Integration
+
+To run tests as part of CI/CD:
+
+```powershell
+# Build and test
+cmake --preset windows-x64-debug
+cmake --build --preset windows-x64-debug
+cd build
+ctest -C Debug --output-on-failure
+```
 
 ---
 

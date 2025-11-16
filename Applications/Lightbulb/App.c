@@ -29,6 +29,7 @@
 
 #include "App.h"
 #include "DB.h"
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -180,13 +181,13 @@ HAPError HandleLightBulbOnWrite(
 //----------------------------------------------------------------------------------------------------------------------
 
 void AccessoryNotification(
-        const HAPAccessory* accessory,
+        const HAPAccessory* accessoryn,
         const HAPService* service,
         const HAPCharacteristic* characteristic,
         void* ctx HAP_UNUSED) {
     HAPLogInfo(&kHAPLog_Default, "Accessory Notification");
 
-    HAPAccessoryServerRaiseEvent(accessoryConfiguration.server, characteristic, service, accessory);
+    HAPAccessoryServerRaiseEvent(accessoryConfiguration.server, characteristic, service, accessoryn);
 }
 
 void AppCreate(HAPAccessoryServerRef* server, HAPPlatformKeyValueStoreRef keyValueStore) {
@@ -202,6 +203,9 @@ void AppCreate(HAPAccessoryServerRef* server, HAPPlatformKeyValueStoreRef keyVal
 }
 
 void AppRelease(void) {
+
+    HAPLogInfo(&kHAPLog_Default, "%s", __func__);
+
 }
 
 void AppAccessoryServerStart(void) {
@@ -240,8 +244,12 @@ void AppInitialize(
         HAPPlatform* hapPlatform HAP_UNUSED,
         HAPAccessoryServerCallbacks* hapAccessoryServerCallbacks HAP_UNUSED) {
     /*no-op*/
+
+    HAPLogInfo(&kHAPLog_Default, "%s", __func__);
 }
 
 void AppDeinitialize() {
     /*no-op*/
+
+    HAPLogInfo(&kHAPLog_Default, "%s", __func__);
 }

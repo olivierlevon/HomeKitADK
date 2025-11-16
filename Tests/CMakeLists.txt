@@ -5,8 +5,12 @@ if(NOT BUILD_TESTING)
     return()
 endif()
 
-# Find all test files
-file(GLOB TEST_SOURCES "*Test.c")
+# Find all test files (both in root and in subdirectories)
+file(GLOB TEST_SOURCES_ROOT "*Test.c" "util_*.c")
+file(GLOB TEST_SOURCES_SUBDIRS "*/*Test.c" "*/util_*.c")
+
+# Combine all test sources
+set(TEST_SOURCES ${TEST_SOURCES_ROOT} ${TEST_SOURCES_SUBDIRS})
 
 # Create test executables
 foreach(TEST_SOURCE ${TEST_SOURCES})
@@ -32,6 +36,7 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
         ${CMAKE_SOURCE_DIR}/HAP
         ${CMAKE_SOURCE_DIR}/PAL
         ${PAL_DIR}
+        ${CMAKE_SOURCE_DIR}/Tests/Harness
     )
 
     set_target_properties(${TEST_NAME} PROPERTIES
@@ -40,6 +45,8 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
 
     # Register with CTest
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+
+    message(STATUS "Configured test: ${TEST_NAME}")
 endforeach()
 
 message(STATUS "Configured ${CMAKE_CURRENT_BINARY_DIR} tests")

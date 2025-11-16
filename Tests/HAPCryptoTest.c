@@ -4,6 +4,8 @@
 // you may not use this file except in compliance with the License.
 // See [CONTRIBUTORS.md] for the list of HomeKit ADK project authors.
 
+#include <stdlib.h>
+
 #include "HAPPlatform.h"
 #include "HAPCrypto.h"
 
@@ -141,6 +143,7 @@ static const uint8_t chacha20_poly1305_ct[] = {
     }
 
 #define test_chacha20_poly1305_inc(key, nonce, pt, aad, tag, ct) \
+    { \
     HAP_chacha20_poly1305_ctx ctx; \
     HAP_chacha20_poly1305_init(&ctx, nonce, sizeof nonce, key); \
     HAP_chacha20_poly1305_update_enc_aad(&ctx, aad, 1, nonce, sizeof nonce, key); \
@@ -460,7 +463,11 @@ static void test_store_big_endian(uint32_t v) {
     } u;
     HAP_store_bigendian(x, v);
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#ifdef _MSC_VER
+	v = _byteswap_ulong(v);
+#else
     v = __builtin_bswap32(v);
+#endif
 #endif
     u.i = v;
     HAPAssert(!memcmp(x, u.x, sizeof x));

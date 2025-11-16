@@ -4,6 +4,27 @@
 // you may not use this file except in compliance with the License.
 // See [CONTRIBUTORS.md] for the list of HomeKit ADK project authors.
 
+#ifdef _WIN32
+#ifdef _DEBUG 
+#define _CRTDBG_MAP_ALLOC 
+#endif
+
+#ifdef _DEBUG 
+#include <crtdbg.h>
+#endif
+#endif
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#ifdef _WIN32
+#include <io.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <Iphlpapi.h>
+#include <windows.h>
+#endif
+
 #include "App.h"
 #include "DB.h"
 
@@ -19,10 +40,36 @@
 #include "HAPPlatformServiceDiscovery+Init.h"
 #include "HAPPlatformTCPStreamManager+Init.h"
 #endif
+#if HAVE_NFC
+#include "HAPPlatformAccessorySetupNFC+Init.h"
+#endif
 
+#ifdef _WIN32
+#if defined(_DEBUG)
+#ifdef VLD
+#include <vld.h> 
+#endif
+
+//#if defined(_DEBUG)
+#ifdef WSOCK_TRACE
+#pragma comment(lib, "wsock_trace.lib")  //"C:\Users\Olivier\Desktop\wsock_trace\src\wsock_trace.lib"
+#else
+ #pragma comment(lib, "Ws2_32.lib")
+#endif
+#else
+ #pragma comment(lib, "Ws2_32.lib")
+#endif
+
+
+
+#else
 #include <signal.h>
+#endif
+
 static bool requestedFactoryReset = false;
 static bool clearPairings = false;
+
+//HANDLE gStopEvent = NULL;
 
 #define PREFERRED_ADVERTISING_INTERVAL (HAPBLEAdvertisingIntervalCreateFromMilliseconds(417.5f))
 
@@ -61,21 +108,30 @@ void HandleUpdatedState(HAPAccessoryServerRef* _Nonnull server, void* _Nullable 
 extern void AppRelease(void);
 extern void AppCreate(HAPAccessoryServerRef* server, HAPPlatformKeyValueStoreRef keyValueStore);
 extern void AppInitialize(
-        HAPAccessoryServerOptions* hapAccessoryServerOptions,
-        HAPPlatform* hapPlatform,
-        HAPAccessoryServerCallbacks* hapAccessoryServerCallbacks);
-extern void AppDeinitialize();
+        HAPAccessoryServerOptions* hapAccessoryServerOptions HAP_UNUSED,
+        HAPPlatform* hapPlatform HAP_UNUSED,
+        HAPAccessoryServerCallbacks* hapAccessoryServerCallbacks HAP_UNUSED);
+extern void AppDeinitialize(void);
 extern void AppAccessoryServerStart(void);
 extern void AccessoryServerHandleUpdatedState(HAPAccessoryServerRef* server, void* _Nullable context);
-extern const HAPAccessory* AppGetAccessoryInfo();
+extern const HAPAccessory* AppGetAccessoryInfo(void);
+
+#ifdef _WIN32
+#ifndef HeapEnableTerminationOnCorruption
+#	define HeapEnableTerminationOnCorruption (HEAP_INFORMATION_CLASS)1
+#endif
+
+//static 
+//extern BOOL WINAPI ConsoleControlHandler(DWORD inControlEvent);
+#endif
 
 /**
  * Initialize global platform objects.
  */
-static void InitializePlatform() {
+static void InitializePlatform(void) {
     // Key-value store.
     HAPPlatformKeyValueStoreCreate(
-            &platform.keyValueStore, &(const HAPPlatformKeyValueStoreOptions) { .rootDirectory = ".HomeKitStore" });
+            &platform.keyValueStore, &(const HAPPlatformKeyValueStoreOptions) { .rootDirectory = ".HomeKitStore" }); //"C:\\Users\\Olivier\\Desktop\\HomeKitADK\\Build\\Debug\\.HomeKitStore"
     platform.hapPlatform.keyValueStore = &platform.keyValueStore;
 
     // Accessory setup manager. Depends on key-value store.
@@ -141,7 +197,7 @@ static void InitializePlatform() {
 /**
  * Deinitialize global platform objects.
  */
-static void DeinitializePlatform() {
+static void DeinitializePlatform(void) {
 #if HAVE_MFI_HW_AUTH
     // Apple Authentication Coprocessor provider.
     HAPPlatformMFiHWAuthRelease(&platform.mfiHWAuth);
@@ -217,7 +273,7 @@ void HandleUpdatedState(HAPAccessoryServerRef* _Nonnull server, void* _Nullable 
 }
 
 #if IP
-static void InitializeIP() {
+static void InitializeIP(void) {
     // Prepare accessory server storage.
     static HAPIPSession ipSessions[kHAPIPSessionStorage_DefaultNumElements];
     static uint8_t ipInboundBuffers[HAPArrayCount(ipSessions)][kHAPIPSession_DefaultInboundBufferSize];
@@ -252,7 +308,7 @@ static void InitializeIP() {
 #endif
 
 #if BLE
-static void InitializeBLE() {
+static void InitializeBLE(void) {
     static HAPBLEGATTTableElementRef gattTableElements[kAttributeCount];
     static HAPBLESessionCacheElementRef sessionCacheElements[kHAPBLESessionCache_MinElements];
     static HAPSessionRef session;
@@ -277,8 +333,128 @@ static void InitializeBLE() {
 }
 #endif
 
-int main(int argc HAP_UNUSED, char* _Nullable argv[_Nullable] HAP_UNUSED) {
+#ifdef _WIN32
+//static 
+BOOL WINAPI	ConsoleControlHandler( DWORD inControlEvent )
+{
+	BOOL			handled;
+//	int		err;
+	
+	handled = FALSE;
+	switch ( inControlEvent )
+	{
+		case CTRL_C_EVENT:
+		case CTRL_BREAK_EVENT:
+			printf( "%s Ctrl-C received inControlEvent %lu\n\n", __FUNCTION__, inControlEvent);
+			printf( "\n%s Exiting................................... \n\n", __FUNCTION__);
+
+		case CTRL_CLOSE_EVENT:
+		case CTRL_LOGOFF_EVENT:
+		case CTRL_SHUTDOWN_EVENT:
+//				err = ServiceSpecificStop();
+//			HAPPlatformRunLoopStop();
+/*
+			BOOL OK = SetEvent(gStopEvent);
+			if (!OK)
+			{
+				DWORD d = GetLastError();
+			}
+*/
+			handled = FALSE; //TRUE;
+			break;
+		
+		default:
+			break;
+	}
+	
+//exit:
+	return( handled );
+}
+#endif
+
+int main(int argc, char* _Nullable argv[_Nullable]) {
+#ifdef _WIN32
+	int ret = 0;
+	int tmpDbgFlag;
+		
+  //  ok = HeapSetInformation(GetProcessHeap(), HeapEnableTerminationOnCorruption, NULL, 0); //NULL
+	//HeapSetInformation(NULL, HeapEnableTerminationOnCorruption, NULL, 0);
+//	SetHeapTerminate(NULL);
+
+
+//	_CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE | _CRTDBG_MODE_WNDW );
+//	_CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDERR );
+
+    // Send all reports to STDOUT
+    _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_FILE ); //_CRTDBG_MODE_DEBUG
+    _CrtSetReportFile( _CRT_WARN, _CRTDBG_FILE_STDOUT );
+    _CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_FILE );
+    _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
+    _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
+    _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
+
+	
+	// Get current flag
+	tmpDbgFlag = _CrtSetDbgFlag( _CRTDBG_REPORT_FLAG );
+
+	// on by def
+//	tmpDbgFlag |= _CRTDBG_ALLOC_MEM_DF;
+	
+	// Turn on leak-checking bit.
+//	tmpDbgFlag |= _CRTDBG_LEAK_CHECK_DF;
+
+	// Turn Off (AND) - prevent _CrtCheckMemory from  
+	// being called at every allocation request  
+	tmpDbgFlag &= ~_CRTDBG_CHECK_ALWAYS_DF;  
+
+	//tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
+
+	// Clear the upper 16 bits and OR in the desired freqency  
+//	tmpDbgFlag = (tmpDbgFlag & 0x0000FFFF) | _CRTDBG_CHECK_EVERY_16_DF; 
+
+	// Turn off CRT block checking bit.
+	tmpDbgFlag &= ~_CRTDBG_CHECK_CRT_DF;
+
+	/*  
+	 * Set the debug-heap flag to keep freed blocks in the  
+	 * heap's linked list - This will allow us to catch any  
+	 * inadvertent use of freed memory  
+	 */  
+    tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;  
+	
+	// Set flag to the new value.
+	_CrtSetDbgFlag( tmpDbgFlag );
+#endif
+	
     HAPAssert(HAPGetCompatibilityVersion() == HAP_COMPATIBILITY_VERSION);
+
+#ifdef _WIN32
+	{
+		WSADATA wsaData;
+		int res;
+
+		res = WSAStartup(MAKEWORD(2, 2), &wsaData);
+		if (res != 0)
+		{
+			fprintf(stderr, "Cannot initialize WinSock %d\n", res);
+			ret = -1;
+			goto exit;
+		}
+	}
+
+	{
+		bool ok;
+
+		// Install a Console Control Handler to handle things like control-c signals.
+		ok = SetConsoleCtrlHandler(ConsoleControlHandler, TRUE);
+		if (!ok)
+		{
+			printf("SetConsoleCtrlHandler error %lu\n", GetLastError());
+			ret = -1;
+			goto exit;
+		}
+	}
+#endif
 
     // Initialize global platform objects.
     InitializePlatform();
@@ -291,7 +467,7 @@ int main(int argc HAP_UNUSED, char* _Nullable argv[_Nullable] HAP_UNUSED) {
     InitializeBLE();
 #endif
 
-    // Perform Application-specific initalizations such as setting up callbacks
+    // Perform Application-specific initializations such as setting up callbacks
     // and configure any additional unique platform dependencies
     AppInitialize(&platform.hapAccessoryServerOptions, &platform.hapPlatform, &platform.hapAccessoryServerCallbacks);
 
@@ -320,5 +496,33 @@ int main(int argc HAP_UNUSED, char* _Nullable argv[_Nullable] HAP_UNUSED) {
 
     DeinitializePlatform();
 
-    return 0;
+#ifdef _WIN32
+	SetConsoleCtrlHandler(ConsoleControlHandler, FALSE);
+
+	// if (gStopEvent)
+		// CloseHandle(gStopEvent);
+	
+	// TearDownNotifications();
+
+exit:
+    WSACleanup();
+
+
+#if defined(_DEBUG)
+#ifndef VLD
+	_CrtDumpMemoryLeaks();
+#endif
+#endif
+
+	if (_isatty(_fileno(stdin)))
+	{
+		printf("  + Press Enter to exit this program.\n");
+		fflush(stdout);
+		fflush(stderr);
+		(void)getchar();
+	}
+#endif
+
+    return ret;
 }
+

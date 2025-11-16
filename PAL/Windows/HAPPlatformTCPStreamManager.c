@@ -13,7 +13,7 @@
 #include "HAPPlatformLog+Init.h"
 #include "HAPPlatformTCPStreamManager+Init.h"
 
-#pragma comment(lib, "ws2_32.lib")
+
 
 static const HAPLogObject logObject = { .subsystem = kHAPPlatform_LogSubsystem, .category = "TCPStreamManager" };
 

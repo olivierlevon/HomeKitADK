@@ -46,7 +46,7 @@ param(
     [string]$Name = 'HomeKit Lightbulb',
 
     [Parameter()]
-    [string]$StoragePath = 'db',
+    [string]$StoragePath = '.HomeKitStore',
 
     [Parameter()]
     [ValidateRange(0, 65535)]
@@ -63,9 +63,12 @@ Write-Info "========================================="
 Write-Info "HomeKit Lightbulb Provisioning"
 Write-Info "========================================="
 
+# Convert to absolute path
+$StoragePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($StoragePath)
+
 # Create storage directory
 if (-not (Test-Path $StoragePath)) {
-    New-Item -ItemType Directory -Path $StoragePath | Out-Null
+    New-Item -ItemType Directory -Path $StoragePath -Force | Out-Null
     Write-Success "✓ Created storage directory: $StoragePath"
 } else {
     Write-Info "Using existing storage directory: $StoragePath"
@@ -81,18 +84,20 @@ $setupInfo = @{
     port = $Port
 }
 
-# Create setup code file (domain 0x00, key 0x00)
-$setupCodeFile = Join-Path $StoragePath "00.00"
-$setupCodeBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupCode)
+# Create setup code file (domain 0x40, key 0x12)
+# Format: HAPSetupCode = 11 bytes (10 chars + null terminator)
+$setupCodeFile = Join-Path $StoragePath "40.12"
+$setupCodeBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupCode + "`0")
 [System.IO.File]::WriteAllBytes($setupCodeFile, $setupCodeBytes)
-Write-Success "✓ Saved setup code: $SetupCode"
+Write-Success "✓ Saved setup code: $SetupCode (domain 0x40, key 0x12)"
 
-# Create setup ID file if provided (domain 0x00, key 0x01)
+# Create setup ID file if provided (domain 0x40, key 0x11)
+# Format: HAPSetupID = 5 bytes (4 chars + null terminator)
 if ($SetupID) {
-    $setupIDFile = Join-Path $StoragePath "00.01"
-    $setupIDBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupID)
+    $setupIDFile = Join-Path $StoragePath "40.11"
+    $setupIDBytes = [System.Text.Encoding]::ASCII.GetBytes($SetupID + "`0")
     [System.IO.File]::WriteAllBytes($setupIDFile, $setupIDBytes)
-    Write-Success "✓ Saved setup ID: $SetupID"
+    Write-Success "✓ Saved setup ID: $SetupID (domain 0x40, key 0x11)"
 
     # Generate QR code payload
     $setupPayload = "X-HM://$SetupID$($SetupCode.Replace('-',''))"

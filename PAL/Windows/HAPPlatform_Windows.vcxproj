@@ -28,6 +28,7 @@
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="..\..\common.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
@@ -45,32 +46,33 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup>
-    <OutDir>$(SolutionDir)build\vs2026\lib\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)build\vs2026\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <VcpkgEnabled>true</VcpkgEnabled>
+    <OutDir>$(SolutionDir)Build\vs2026\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\vs2026\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>HAPPlatform</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4100;4189;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <TreatSpecificWarningsAsErrors>4013;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00;WIN32_LEAN_AND_MEAN;NOMINMAX;OPENSSL_API_COMPAT=0x10100000L;HAP_LOG_LEVEL=2;HAVE_DISPLAY=1;HAVE_DRIVER_IP_STACK=1;HAVE_QR_CODE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;NOMINMAX;OPENSSL_API_COMPAT=0x10100000L;HAP_IP=1;HAP_BLE=0;HAVE_DISPLAY=1;HAVE_QR_CODE=1;HAVE_NFC=0;HAVE_MFI_HW_AUTH=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)HAP;$(SolutionDir)PAL;$(ProjectDir);$(SolutionDir)PAL\Crypto\OpenSSL;$(SolutionDir)External\Base64;$(SolutionDir)External\JSON;$(SolutionDir)External\HTTP;$(HOMEKIT_DEPS)\include;$(HOMEKIT_DEPS)\include\nfc;$(SolutionDir)vcpkg_installed\x64-windows\include;$(SolutionDir)vcpkg_installed\x64-windows\include\libusb-1.0;$(BONJOUR_SDK)\Include;$(VCPKG_ROOT)\installed\x64-windows\include;$(VCPKG_ROOT)\installed\x64-windows\include\libusb-1.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Condition="'$(Configuration)'=='Debug'">
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAP_LOG_SENSITIVE=1;_DEBUG;HAP_ENABLE_DEVELOPMENT_ONLY_CODE=1;HAP_TESTING;HAP_Debug;HAP_LOG_LEVEL=3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Condition="'$(Configuration)'=='Release'">
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;HAP_DISABLE_ASSERTS=1;HAP_DISABLE_PRECONDITIONS=1;HAP_LOG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>ws2_32.lib;bcrypt.lib;advapi32.lib;dnssd.lib;qrencode.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(HOMEKIT_DEPS)\lib;$(SolutionDir)vcpkg_installed\x64-windows\lib;$(BONJOUR_SDK)\Lib\x64;$(VCPKG_ROOT)\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries Condition="'$(Configuration)'=='Release'">libcmt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "mbedtls/version.h"
 #include "mbedtls/sha1.h"
 #include "mbedtls/sha256.h"
 #include "mbedtls/sha512.h"
@@ -22,19 +23,37 @@
 #include "mbedtls/ecdh.h"
 #include "mbedtls/bignum.h"
 
+// MbedTLS 3.x+ made ecp_keypair members private
+// If MBEDTLS_PRIVATE is not defined (MbedTLS 2.x), define it as passthrough
+#ifndef MBEDTLS_PRIVATE
+#define MBEDTLS_PRIVATE(x) x
+#endif
+
 static void sha512_init(mbedtls_sha512_context* ctx) {
     mbedtls_sha512_init(ctx);
+#if MBEDTLS_VERSION_MAJOR >= 3
+    int ret = mbedtls_sha512_starts(ctx, 0);
+#else
     int ret = mbedtls_sha512_starts_ret(ctx, 0);
+#endif
     HAPAssert(ret == 0);
 }
 
 static void sha512_update(mbedtls_sha512_context* ctx, const uint8_t* data, size_t size) {
+#if MBEDTLS_VERSION_MAJOR >= 3
+    int ret = mbedtls_sha512_update(ctx, data, size);
+#else
     int ret = mbedtls_sha512_update_ret(ctx, data, size);
+#endif
     HAPAssert(ret == 0);
 }
 
 static void sha512_final(mbedtls_sha512_context* ctx, uint8_t md[SHA512_BYTES]) {
+#if MBEDTLS_VERSION_MAJOR >= 3
+    int ret = mbedtls_sha512_finish(ctx, md);
+#else
     int ret = mbedtls_sha512_finish_ret(ctx, md);
+#endif
     HAPAssert(ret == 0);
     mbedtls_sha512_free(ctx);
 }
@@ -119,9 +138,9 @@ void HAP_X25519_scalarmult(
         int ret = mbedtls_ecp_read_key(MBEDTLS_ECP_DP_CURVE25519, &our_key, n, X25519_SCALAR_BYTES);
         HAPAssert(ret == 0);
         WITH_ECP_KEYPAIR(their_key, {
-            ret = mbedtls_ecp_group_load(&their_key.grp, MBEDTLS_ECP_DP_CURVE25519);
+            ret = mbedtls_ecp_group_load(&their_key.MBEDTLS_PRIVATE(grp), MBEDTLS_ECP_DP_CURVE25519);
             HAPAssert(ret == 0);
-            ret = mbedtls_ecp_point_read_binary(&their_key.grp, &their_key.Q, p, X25519_BYTES);
+            ret = mbedtls_ecp_point_read_binary(&their_key.MBEDTLS_PRIVATE(grp), &their_key.MBEDTLS_PRIVATE(Q), p, X25519_BYTES);
             HAPAssert(ret == 0);
             WITH_ECDH(ecdh, {
                 ret = mbedtls_ecdh_get_params(&ecdh, &their_key, MBEDTLS_ECDH_THEIRS);
@@ -141,10 +160,10 @@ void HAP_X25519_scalarmult_base(uint8_t r[X25519_BYTES], const uint8_t n[X25519_
     WITH_ECP_KEYPAIR(key, {
         int ret = mbedtls_ecp_read_key(MBEDTLS_ECP_DP_CURVE25519, &key, n, X25519_SCALAR_BYTES);
         HAPAssert(ret == 0);
-        ret = mbedtls_ecp_mul(&key.grp, &key.Q, &key.d, &key.grp.G, blinding_rng, NULL);
+        ret = mbedtls_ecp_mul(&key.MBEDTLS_PRIVATE(grp), &key.MBEDTLS_PRIVATE(Q), &key.MBEDTLS_PRIVATE(d), &key.MBEDTLS_PRIVATE(grp).G, blinding_rng, NULL);
         HAPAssert(ret == 0);
         size_t out_len;
-        ret = mbedtls_ecp_point_write_binary(&key.grp, &key.Q, MBEDTLS_ECP_PF_UNCOMPRESSED, &out_len, r, X25519_BYTES);
+        ret = mbedtls_ecp_point_write_binary(&key.MBEDTLS_PRIVATE(grp), &key.MBEDTLS_PRIVATE(Q), MBEDTLS_ECP_PF_UNCOMPRESSED, &out_len, r, X25519_BYTES);
         HAPAssert(ret == 0);
         HAPAssert(out_len == X25519_BYTES);
     });
@@ -428,11 +447,19 @@ void HAP_srp_proof_m2(
 void HAP_sha1(uint8_t md[SHA1_BYTES], const uint8_t* data, size_t size) {
     mbedtls_sha1_context ctx;
     mbedtls_sha1_init(&ctx);
+#if MBEDTLS_VERSION_MAJOR >= 3
+    int ret = mbedtls_sha1_starts(&ctx);
+    HAPAssert(ret == 0);
+    ret = mbedtls_sha1_update(&ctx, data, size);
+    HAPAssert(ret == 0);
+    ret = mbedtls_sha1_finish(&ctx, md);
+#else
     int ret = mbedtls_sha1_starts_ret(&ctx);
     HAPAssert(ret == 0);
     ret = mbedtls_sha1_update_ret(&ctx, data, size);
     HAPAssert(ret == 0);
     ret = mbedtls_sha1_finish_ret(&ctx, md);
+#endif
     HAPAssert(ret == 0);
     mbedtls_sha1_free(&ctx);
 }
@@ -440,11 +467,19 @@ void HAP_sha1(uint8_t md[SHA1_BYTES], const uint8_t* data, size_t size) {
 void HAP_sha256(uint8_t md[SHA256_BYTES], const uint8_t* data, size_t size) {
     mbedtls_sha256_context ctx;
     mbedtls_sha256_init(&ctx);
+#if MBEDTLS_VERSION_MAJOR >= 3
+    int ret = mbedtls_sha256_starts(&ctx, 0);
+    HAPAssert(ret == 0);
+    ret = mbedtls_sha256_update(&ctx, data, size);
+    HAPAssert(ret == 0);
+    ret = mbedtls_sha256_finish(&ctx, md);
+#else
     int ret = mbedtls_sha256_starts_ret(&ctx, 0);
     HAPAssert(ret == 0);
     ret = mbedtls_sha256_update_ret(&ctx, data, size);
     HAPAssert(ret == 0);
     ret = mbedtls_sha256_finish_ret(&ctx, md);
+#endif
     HAPAssert(ret == 0);
     mbedtls_sha256_free(&ctx);
 }
@@ -653,6 +688,11 @@ void HAP_aes_ctr_init(HAP_aes_ctr_ctx* ctx, const uint8_t* key, int size, const 
     AES_CTR_Handle* handle = (AES_CTR_Handle*) ctx;
     HAPAssert(size == 16 || size == 32);
     handle->ctx = malloc(sizeof(AES_CTR_CTX));
+	if (handle->ctx == NULL) {
+		handle = NULL;
+		return;
+//		HAPFatalError();
+    }
     AES_CTR_CTX* ctr_ctx = handle->ctx;
     mbedtls_aes_context* mbedtls_ctx = &(ctr_ctx->ctx);
     mbedtls_aes_init(mbedtls_ctx);

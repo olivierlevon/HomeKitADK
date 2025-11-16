@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <mDNSResponderVersion>mDNSResponder-2600.120.12</mDNSResponderVersion>
+    <DNS_SD_VERSION_NUMBER_OVERRIDE>2600120012</DNS_SD_VERSION_NUMBER_OVERRIDE>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>WINVER=0x0A00;NTDDI_VERSION=0x0A000007;_WIN32_WINNT=0x0A00;mDNSResponderVersion=$(mDNSResponderVersion);DNS_SD_VERSION_NUMBER_OVERRIDE=$(DNS_SD_VERSION_NUMBER_OVERRIDE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>mDNSResponderVersion=$(mDNSResponderVersion);DNS_SD_VERSION_NUMBER_OVERRIDE=$(DNS_SD_VERSION_NUMBER_OVERRIDE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+</Project>
